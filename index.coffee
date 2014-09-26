@@ -1,4 +1,4 @@
-
+-
 module.exports = class Lightbox
 	elements = null
 	current = null

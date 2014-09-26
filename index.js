@@ -3,7 +3,7 @@
   var Lightbox,
     __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
 
-  module.exports = Lightbox = (function() {
+  -(module.exports = Lightbox = (function() {
     var current, elements;
 
     function Lightbox() {
@@ -123,6 +123,6 @@
 
     return Lightbox;
 
-  })();
+  })());
 
 }).call(this);

@@ -39,16 +39,6 @@
       }
     };
 
-    Lightbox.prototype.t = function(s) {
-      var t;
-      t = this.model.get('translate');
-      if (typeof t === 'string') {
-        return this.app.proto[t].call(this.app, s);
-      } else {
-        return s;
-      }
-    };
-
     Lightbox.prototype.show = function(e) {
       if (e) {
         current = e.srcElement || e.target || e.toElement;

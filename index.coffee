@@ -11,9 +11,6 @@ module.exports = class Lightbox
 			for el in elements
 				el.addEventListener 'click', @show
 				el.classList.add 'd-l'
-	t: (s) ->
-		t = @model.get('translate')
-		if typeof t is 'string' then @app.proto[t].call(@app, s) else s
 	show: (e) =>
 		if e
 			current = e.srcElement or e.target or e.toElement

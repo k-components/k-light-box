@@ -7,6 +7,21 @@ Uses [flexbox](http://caniuse.com/#feat=flexbox), so not totally compatible with
 
 May burn houses down etc. Improvements are welcome.
 
+##Install
+
+`npm install d-light-box`
+
+
+##Setup
+
+```coffeescript
+app.component(require('d-lightbox'))
+```
+
+```css
+@import 'node_modules/d-lightbox'
+```
+
 ##Usage
 
 ```html

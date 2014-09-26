@@ -3,7 +3,7 @@
   var Lightbox,
     __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
 
-  -(module.exports = Lightbox = (function() {
+  module.exports = Lightbox = (function() {
     var current, elements;
 
     function Lightbox() {
@@ -22,7 +22,7 @@
 
     Lightbox.prototype.view = __dirname;
 
-    Lightbox.prototype.name = 'd-lightbox';
+    Lightbox.prototype.name = 'd-light-box';
 
     Lightbox.prototype.create = function() {
       var el, selector, _i, _len, _results;
@@ -123,6 +123,6 @@
 
     return Lightbox;
 
-  })());
+  })();
 
 }).call(this);

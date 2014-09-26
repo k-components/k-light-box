@@ -1,9 +1,8 @@
--
 module.exports = class Lightbox
 	elements = null
 	current = null
 	view: __dirname
-	name: 'd-lightbox'
+	name: 'd-light-box'
 	create: ->
 		selector = @model.get 'selector'
 		if selector

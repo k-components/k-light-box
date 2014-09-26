@@ -35,7 +35,7 @@ module.exports = class Lightbox
 		document.getElementById('dl-button-right').addEventListener 'click', @next, true
 		document.getElementById('dl-button-left').addEventListener 'click', @prev, true
 	removeEvents: =>
-		document.removeEventListener 'keydown', @keydown
+		document.removeEventListener 'keydown', @keydown, true
 		document.getElementById('dl-button-right').removeEventListener 'click', @next
 		document.getElementById('dl-button-left').removeEventListener 'click', @prev
 	next: (e) =>

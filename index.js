@@ -74,7 +74,7 @@
     };
 
     Lightbox.prototype.removeEvents = function() {
-      document.removeEventListener('keydown', this.keydown);
+      document.removeEventListener('keydown', this.keydown, true);
       document.getElementById('dl-button-right').removeEventListener('click', this.next);
       return document.getElementById('dl-button-left').removeEventListener('click', this.prev);
     };

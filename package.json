@@ -1,0 +1,19 @@
+{
+  "name": "d-light-box",
+  "version": "0.0.1",
+  "description": "Derby.js lightbox component",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ile/d-light-box.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ile/d-light-box/issues"
+  },
+  "homepage": "https://github.com/ile/d-light-box"
+}

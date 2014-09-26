@@ -1,0 +1,11 @@
+<index: element="d-lightbox">
+	{{if src}}
+    <div id="dl-container" on-click="cancel()">
+        <figure>
+            <img src="{{src}}">
+            <figcaption>{{caption}}</figcaption>
+        </figure>
+        <i class="fa fa-angle-right dl-button dl-button-right" id="dl-button-right"></i>
+        <i class="fa fa-angle-left dl-button dl-button-left" id="dl-button-left"></i>
+    </div>
+	{{/}}

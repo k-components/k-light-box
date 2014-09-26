@@ -1,0 +1,53 @@
+.d-l
+  cursor pointer
+
+#dl-container
+  position fixed
+  top 0
+  left 0
+  right 0
+  bottom 0
+  background rgba(255,255,255,0.95)
+  z-index 1000
+  display flex
+  justify-content center
+  align-items center
+  
+  .dl-button-left
+    left 10px
+
+  .dl-button-right
+    right 10px
+
+  .dl-button:hover
+    color #aaa
+  .dl-button
+    position absolute
+    top 50%
+    font-size 72px
+    color #ddd
+    cursor pointer
+    transition 0.3s color
+
+  figure
+    max-width 90%
+    max-height 90%
+    animation 1.5s appear cubic-bezier(0,.96,.44,.98)
+
+    i
+      position absolute
+    img
+      max-width 100%
+      width auto
+      max-height 100%
+      height auto
+      box-shadow 0 0 10px rgba(0,0,0,0.3)
+    figcaption
+
+@keyframes appear
+  0%
+    transform scale(0.95)
+    opacity 0
+  100%
+    transform scale(1)
+    opacity 1

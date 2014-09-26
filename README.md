@@ -10,7 +10,7 @@ May burn houses down etc. Improvements are welcome.
 ##Usage
 
 ```html
-<d-light-box selector="#article img"></d-lightbox>
+<d-light-box selector="#article img"></d-light-box>
 ```
 
 This will apply the lightbox to the elements found by the `selector`.

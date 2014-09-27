@@ -4,34 +4,44 @@
     __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
 
   module.exports = Lightbox = (function() {
-    var current, elements;
-
     function Lightbox() {
       this.prev = __bind(this.prev, this);
       this.next = __bind(this.next, this);
-      this.removeEvents = __bind(this.removeEvents, this);
-      this.addEvents = __bind(this.addEvents, this);
+      this.unbindButtons = __bind(this.unbindButtons, this);
+      this.bindButtons = __bind(this.bindButtons, this);
       this.keydown = __bind(this.keydown, this);
       this.cancel = __bind(this.cancel, this);
       this.show = __bind(this.show, this);
+      this.enumerateImages = __bind(this.enumerateImages, this);
+      this.enumerateImagesDelayed = __bind(this.enumerateImagesDelayed, this);
     }
-
-    elements = null;
-
-    current = null;
 
     Lightbox.prototype.view = __dirname;
 
     Lightbox.prototype.name = 'd-light-box';
 
     Lightbox.prototype.create = function() {
-      var el, selector, _i, _len, _results;
-      selector = this.model.get('selector');
-      if (selector) {
-        elements = document.querySelectorAll(selector);
+      this.selector = this.model.get('selector');
+      this.enumerateImages();
+      return document.addEventListener('change', this.enumerateImagesDelayed, true);
+    };
+
+    Lightbox.prototype.destroy = function() {
+      return document.removeEventListener('change', this.enumerateImagesDelayed, true);
+    };
+
+    Lightbox.prototype.enumerateImagesDelayed = function() {
+      return window.setTimeout(this.enumerateImages, 500);
+    };
+
+    Lightbox.prototype.enumerateImages = function() {
+      var el, _i, _len, _ref, _results;
+      if (this.selector) {
+        this.elements = document.querySelectorAll(this.selector);
+        _ref = this.elements;
         _results = [];
-        for (_i = 0, _len = elements.length; _i < _len; _i++) {
-          el = elements[_i];
+        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+          el = _ref[_i];
           el.addEventListener('click', this.show);
           _results.push(el.classList.add('d-l'));
         }
@@ -41,14 +51,14 @@
 
     Lightbox.prototype.show = function(e) {
       if (e) {
-        current = e.srcElement || e.target || e.toElement;
+        this.current = e.srcElement || e.target || e.toElement;
       }
-      this.model.set('src', current.src);
-      return setTimeout(this.addEvents(), 1);
+      this.model.set('src', this.current.src);
+      return setTimeout(this.bindButtons(), 1);
     };
 
     Lightbox.prototype.cancel = function(e) {
-      this.removeEvents();
+      this.unbindButtons();
       return this.model.del('src');
     };
 
@@ -67,33 +77,34 @@
       }
     };
 
-    Lightbox.prototype.addEvents = function() {
+    Lightbox.prototype.bindButtons = function() {
       document.addEventListener('keydown', this.keydown, true);
       document.getElementById('dl-button-right').addEventListener('click', this.next, true);
       return document.getElementById('dl-button-left').addEventListener('click', this.prev, true);
     };
 
-    Lightbox.prototype.removeEvents = function() {
+    Lightbox.prototype.unbindButtons = function() {
       document.removeEventListener('keydown', this.keydown, true);
       document.getElementById('dl-button-right').removeEventListener('click', this.next);
       return document.getElementById('dl-button-left').removeEventListener('click', this.prev);
     };
 
     Lightbox.prototype.next = function(e) {
-      var el, next, _i, _len, _results;
+      var el, next, _i, _len, _ref, _results;
       if (e) {
         e.stopPropagation();
       }
       next = false;
+      _ref = this.elements;
       _results = [];
-      for (_i = 0, _len = elements.length; _i < _len; _i++) {
-        el = elements[_i];
+      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+        el = _ref[_i];
         if (next) {
-          current = el;
+          this.current = el;
           this.show();
           break;
         }
-        if (el === current) {
+        if (el === this.current) {
           _results.push(next = true);
         } else {
           _results.push(void 0);
@@ -103,16 +114,17 @@
     };
 
     Lightbox.prototype.prev = function(e) {
-      var el, prev, _i, _len, _results;
+      var el, prev, _i, _len, _ref, _results;
       if (e) {
         e.stopPropagation();
       }
       prev = false;
+      _ref = this.elements;
       _results = [];
-      for (_i = 0, _len = elements.length; _i < _len; _i++) {
-        el = elements[_i];
-        if (el === current && prev) {
-          current = prev;
+      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+        el = _ref[_i];
+        if (el === this.current && prev) {
+          this.current = prev;
           this.show();
           break;
         }

@@ -1,22 +1,27 @@
 module.exports = class Lightbox
-	elements = null
-	current = null
 	view: __dirname
 	name: 'd-light-box'
 	create: ->
-		selector = @model.get 'selector'
-		if selector
-			elements = document.querySelectorAll(selector)
-			for el in elements
+		@selector = @model.get 'selector'
+		@enumerateImages()
+		document.addEventListener 'change', @enumerateImagesDelayed, true
+	destroy: ->
+		document.removeEventListener 'change', @enumerateImagesDelayed, true
+	enumerateImagesDelayed: =>
+		window.setTimeout @enumerateImages, 500
+	enumerateImages: =>
+		if @selector
+			@elements = document.querySelectorAll(@selector)
+			for el in @elements
 				el.addEventListener 'click', @show
 				el.classList.add 'd-l'
 	show: (e) =>
 		if e
-			current = e.srcElement or e.target or e.toElement
-		@model.set 'src', current.src
-		setTimeout @addEvents(), 1
+			@current = e.srcElement or e.target or e.toElement
+		@model.set 'src', @current.src
+		setTimeout @bindButtons(), 1
 	cancel: (e) =>
-		@removeEvents()
+		@unbindButtons()
 		@model.del 'src'
 	keydown: (e) =>
 		key = e.keyCode or e.which
@@ -29,29 +34,29 @@ module.exports = class Lightbox
 		else if key is 27
 			e.stopPropagation()
 			@cancel()
-	addEvents: =>
+	bindButtons: =>
 		document.addEventListener 'keydown', @keydown, true
 		document.getElementById('dl-button-right').addEventListener 'click', @next, true
 		document.getElementById('dl-button-left').addEventListener 'click', @prev, true
-	removeEvents: =>
+	unbindButtons: =>
 		document.removeEventListener 'keydown', @keydown, true
 		document.getElementById('dl-button-right').removeEventListener 'click', @next
 		document.getElementById('dl-button-left').removeEventListener 'click', @prev
 	next: (e) =>
 		e.stopPropagation() if e
 		next = false
-		for el in elements
+		for el in @elements
 			if next
-				current = el
+				@current = el
 				@show()
 				break
-			next = true if el is current
+			next = true if el is @current
 	prev: (e) =>
 		e.stopPropagation() if e
 		prev = false
-		for el in elements
-			if el is current and prev
-				current = prev
+		for el in @elements
+			if el is @current and prev
+				@current = prev
 				@show()
 				break
 			prev = el

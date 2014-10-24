@@ -1,28 +1,35 @@
 module.exports = class Lightbox
 	view: __dirname
 	name: 'd-light-box'
+
 	create: ->
 		@selector = @model.get 'selector'
 		@enumerateImages()
 		document.addEventListener 'change', @enumerateImagesDelayed, true
+
 	destroy: ->
 		document.removeEventListener 'change', @enumerateImagesDelayed, true
+
 	enumerateImagesDelayed: =>
-		window.setTimeout @enumerateImages, 500
+		window.setTimeout @enumerateImages, 3000
+
 	enumerateImages: =>
 		if @selector
 			@elements = document.querySelectorAll(@selector)
 			for el in @elements
 				el.addEventListener 'click', @show
 				el.classList.add 'd-l'
+
 	show: (e) =>
 		if e
 			@current = e.srcElement or e.target or e.toElement
 		@model.set 'src', @current.src
 		setTimeout @bindButtons(), 1
+
 	cancel: (e) =>
 		@unbindButtons()
 		@model.del 'src'
+
 	keydown: (e) =>
 		key = e.keyCode or e.which
 		if key is 37
@@ -34,14 +41,17 @@ module.exports = class Lightbox
 		else if key is 27
 			e.stopPropagation()
 			@cancel()
+
 	bindButtons: =>
 		document.addEventListener 'keydown', @keydown, true
 		document.getElementById('dl-button-right').addEventListener 'click', @next, true
 		document.getElementById('dl-button-left').addEventListener 'click', @prev, true
+
 	unbindButtons: =>
 		document.removeEventListener 'keydown', @keydown, true
 		document.getElementById('dl-button-right').removeEventListener 'click', @next
 		document.getElementById('dl-button-left').removeEventListener 'click', @prev
+
 	next: (e) =>
 		e.stopPropagation() if e
 		next = false
@@ -51,6 +61,7 @@ module.exports = class Lightbox
 				@show()
 				break
 			next = true if el is @current
+
 	prev: (e) =>
 		e.stopPropagation() if e
 		prev = false

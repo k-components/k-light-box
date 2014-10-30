@@ -5,13 +5,13 @@ module.exports = class Lightbox
 	create: ->
 		@selector = @model.get 'selector'
 		@enumerateImages()
-		document.addEventListener 'change', @enumerateImagesDelayed, true
-
-	destroy: ->
-		document.removeEventListener 'change', @enumerateImagesDelayed, true
+		path = @model.get('path')
+		if path
+			@path = @model.root.at("#{path}**")
+			@path.on 'insert', @enumerateImagesDelayed
 
 	enumerateImagesDelayed: =>
-		window.setTimeout @enumerateImages, 3000
+		window.setTimeout @enumerateImages, 2500
 
 	enumerateImages: =>
 		if @selector

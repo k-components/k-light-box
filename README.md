@@ -15,11 +15,11 @@ May burn houses down etc. Improvements are welcome.
 ##Setup
 
 ```coffeescript
-app.component(require('d-lightbox'))
+app.component(require('d-light-box'))
 ```
 
 ```css
-@import 'node_modules/d-lightbox'
+@import 'node_modules/d-light-box'
 ```
 
 ##Usage

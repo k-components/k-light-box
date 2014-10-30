@@ -21,17 +21,18 @@
     Lightbox.prototype.name = 'd-light-box';
 
     Lightbox.prototype.create = function() {
+      var path;
       this.selector = this.model.get('selector');
       this.enumerateImages();
-      return document.addEventListener('change', this.enumerateImagesDelayed, true);
-    };
-
-    Lightbox.prototype.destroy = function() {
-      return document.removeEventListener('change', this.enumerateImagesDelayed, true);
+      path = this.model.get('path');
+      if (path) {
+        this.path = this.model.root.at("" + path + "**");
+        return this.path.on('insert', this.enumerateImagesDelayed);
+      }
     };
 
     Lightbox.prototype.enumerateImagesDelayed = function() {
-      return window.setTimeout(this.enumerateImages, 3000);
+      return window.setTimeout(this.enumerateImages, 2500);
     };
 
     Lightbox.prototype.enumerateImages = function() {

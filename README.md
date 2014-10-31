@@ -7,6 +7,10 @@ Uses [flexbox](http://caniuse.com/#feat=flexbox), so not totally compatible with
 
 May burn houses down etc. Improvements are welcome.
 
+##Demo
+
+https://derby-demos.herokuapp.com/d-light-box
+
 ##Install
 
 `npm install d-light-box`

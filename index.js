@@ -23,12 +23,12 @@
     Lightbox.prototype.create = function() {
       var path;
       this.selector = this.model.get('selector');
-      this.enumerateImages();
       path = this.model.get('path');
       if (path) {
         this.path = this.model.root.at("" + path + "**");
-        return this.path.on('insert', this.enumerateImagesDelayed);
+        this.path.on('insert', this.enumerateImagesDelayed);
       }
+      return window.setTimeout(this.enumerateImages, 100);
     };
 
     Lightbox.prototype.enumerateImagesDelayed = function() {

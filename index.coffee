@@ -4,11 +4,11 @@ module.exports = class Lightbox
 
 	create: ->
 		@selector = @model.get 'selector'
-		@enumerateImages()
 		path = @model.get('path')
 		if path
 			@path = @model.root.at("#{path}**")
 			@path.on 'insert', @enumerateImagesDelayed
+		window.setTimeout @enumerateImages, 100
 
 	enumerateImagesDelayed: =>
 		window.setTimeout @enumerateImages, 2500

@@ -1,6 +1,6 @@
 module.exports = class Lightbox
 	view: __dirname
-	name: 'd-light-box'
+	name: 'k-light-box'
 
 	create: ->
 		@selector = @model.get 'selector'

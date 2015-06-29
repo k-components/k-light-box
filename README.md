@@ -1,4 +1,4 @@
-d-light-box
+k-light-box
 ====
 
 Very light lightbox for Derby.js.
@@ -9,27 +9,27 @@ May burn houses down etc. Improvements are welcome.
 
 ##Demo
 
-https://derby-demos.herokuapp.com/d-light-box
+https://derby-demos.herokuapp.com/k-light-box
 
 ##Install
 
-`npm install d-light-box`
+`npm install k-light-box`
 
 
 ##Setup
 
 ```coffeescript
-app.component(require('d-light-box'))
+app.component(require('k-light-box'))
 ```
 
 ```css
-@import 'node_modules/d-light-box'
+@import 'node_modules/k-light-box'
 ```
 
 ##Usage
 
 ```html
-<d-light-box selector="#article img"></d-light-box>
+<k-light-box selector="#article img"></k-light-box>
 ```
 
 This will apply the lightbox to the elements found by the `selector`.

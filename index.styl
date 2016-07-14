@@ -30,19 +30,20 @@
     transition 0.3s color
 
   figure
+    display flex
     max-width 90%
     max-height 90%
-    animation 1.5s appear cubic-bezier(0,.96,.44,.98)
+    animation 1.5s light-box-appear cubic-bezier(0,.96,.44,.98)
 
     img
       max-width 100%
       max-height 100%
       width auto
       height auto
-      box-shadow 0 0 10px rgba(0,0,0,0.3)
+      object-fit contain
     figcaption
 
-@keyframes appear
+@keyframes light-box-appear
   0%
     transform scale(0.95)
   100%

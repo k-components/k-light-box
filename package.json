@@ -1,6 +1,6 @@
 {
   "name": "k-light-box",
-  "version": "0.2.6",
+  "version": "0.2.7",
   "description": "Derby.js lightbox component",
   "main": "index.js",
   "scripts": {

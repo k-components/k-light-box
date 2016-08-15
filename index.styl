@@ -11,6 +11,7 @@
   z-index 1000
   display flex
   justify-content center
+  align-items center
   
   .dl-button-left
     left 10px
@@ -20,6 +21,7 @@
 
   .dl-button:hover
     color #aaa
+
   .dl-button
     position absolute
     top 50%
@@ -34,15 +36,14 @@
     max-height 90%
     animation 1.5s light-box-appear cubic-bezier(0,.96,.44,.98)
 
-    img
+    img, iframe, video
       max-width 100%
       max-height 100%
       width auto
       height auto
       object-fit contain
-      margin-left: auto;
-      margin-right: auto;      
-    figcaption
+      margin-left auto
+      margin-right auto
 
 @keyframes light-box-appear
   0%

@@ -25,8 +25,10 @@
       this.selector = this.getAttribute('selector');
       path = this.getAttribute('path');
       if (path) {
-        this.path = this.model.root.at(path + "**");
+        this.path = this.model.root.at(path + ".**");
+        this.path2 = this.model.root.at(path + ".**.html");
         this.path.on('insert', this.enumerateImagesDelayed);
+        this.path2.on('change', this.enumerateImagesDelayed);
       }
       return window.setTimeout(this.enumerateImages, 100);
     };

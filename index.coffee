@@ -6,8 +6,10 @@ module.exports = class Lightbox
     @selector = @getAttribute('selector')
     path = @getAttribute('path')
     if path
-      @path = @model.root.at("#{path}**")
+      @path = @model.root.at("#{path}.**")
+      @path2 = @model.root.at("#{path}.**.html")
       @path.on 'insert', @enumerateImagesDelayed
+      @path2.on 'change', @enumerateImagesDelayed
     window.setTimeout @enumerateImages, 100
 
   enumerateImagesDelayed: =>

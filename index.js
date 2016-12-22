@@ -14,6 +14,7 @@
       this.show = bind(this.show, this);
       this.enumerateImages = bind(this.enumerateImages, this);
       this.enumerateImagesDelayed = bind(this.enumerateImagesDelayed, this);
+      this.deEnumerateImages = bind(this.deEnumerateImages, this);
     }
 
     Lightbox.prototype.view = __dirname;
@@ -22,11 +23,13 @@
 
     Lightbox.prototype.destroy = function() {
       this.path.removeListener('insert', this.enumerateImagesDelayed);
-      return this.path2.removeListener('change', this.enumerateImagesDelayed);
+      this.path2.removeListener('change', this.enumerateImagesDelayed);
+      return this.deEnumerateImages();
     };
 
     Lightbox.prototype.create = function() {
       var path;
+      this.ts = Date.now();
       this.selector = this.getAttribute('selector');
       path = this.getAttribute('path');
       if (path) {
@@ -35,22 +38,29 @@
         this.path.on('insert', this.enumerateImagesDelayed);
         this.path2.on('change', this.enumerateImagesDelayed);
       }
-      return window.setTimeout(this.enumerateImages, 100);
+      return this.enumerateImages();
+    };
+
+    Lightbox.prototype.deEnumerateImages = function() {
+      return this.enumerateImages('removeEventListener');
     };
 
     Lightbox.prototype.enumerateImagesDelayed = function() {
       return window.setTimeout(this.enumerateImages, 2500);
     };
 
-    Lightbox.prototype.enumerateImages = function() {
+    Lightbox.prototype.enumerateImages = function(fn) {
       var el, i, len, ref, results;
+      if (fn == null) {
+        fn = 'addEventListener';
+      }
       if (this.selector) {
         this.elements = document.querySelectorAll(this.selector);
         ref = this.elements;
         results = [];
         for (i = 0, len = ref.length; i < len; i++) {
           el = ref[i];
-          el.addEventListener('click', this.show);
+          el[fn]('click', this.show);
           results.push(el.classList.add('d-l'));
         }
         return results;
@@ -62,7 +72,7 @@
         this.current = e.srcElement || e.target || e.toElement;
       }
       this.model.set('src', this.current.src);
-      return setTimeout(this.bindButtons(), 1);
+      return setTimeout(this.bindButtons, 1);
     };
 
     Lightbox.prototype.cancel = function(e) {
@@ -86,6 +96,7 @@
     };
 
     Lightbox.prototype.bindButtons = function() {
+      console.log(document);
       document.addEventListener('keydown', this.keydown, true);
       document.getElementById('dl-button-right').addEventListener('click', this.next, true);
       return document.getElementById('dl-button-left').addEventListener('click', this.prev, true);

@@ -2,6 +2,10 @@ module.exports = class Lightbox
   view: __dirname
   name: 'k-light-box'
 
+  destroy: ->
+    @path.removeListener 'insert', @enumerateImagesDelayed
+    @path2.removeListener 'change', @enumerateImagesDelayed
+
   create: ->
     @selector = @getAttribute('selector')
     path = @getAttribute('path')

@@ -20,6 +20,11 @@
 
     Lightbox.prototype.name = 'k-light-box';
 
+    Lightbox.prototype.destroy = function() {
+      this.path.removeListener('insert', this.enumerateImagesDelayed);
+      return this.path2.removeListener('change', this.enumerateImagesDelayed);
+    };
+
     Lightbox.prototype.create = function() {
       var path;
       this.selector = this.getAttribute('selector');

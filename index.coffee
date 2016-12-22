@@ -30,7 +30,7 @@ module.exports = class Lightbox
     if e
       @current = e.srcElement or e.target or e.toElement
     @model.set 'src', @current.src
-    setTimeout @bindButtons(), 1
+    setTimeout @bindButtons(), 10
 
   cancel: (e) =>
     @unbindButtons()

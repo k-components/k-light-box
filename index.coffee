@@ -54,7 +54,6 @@ module.exports = class Lightbox
       @cancel()
 
   bindButtons: =>
-    console.log(document)
     document.addEventListener 'keydown', @keydown, true
     document.getElementById('dl-button-right').addEventListener 'click', @next, true
     document.getElementById('dl-button-left').addEventListener 'click', @prev, true

@@ -96,7 +96,6 @@
     };
 
     Lightbox.prototype.bindButtons = function() {
-      console.log(document);
       document.addEventListener('keydown', this.keydown, true);
       document.getElementById('dl-button-right').addEventListener('click', this.next, true);
       return document.getElementById('dl-button-left').addEventListener('click', this.prev, true);

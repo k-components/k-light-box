@@ -55,13 +55,17 @@ module.exports = class Lightbox
 
   bindButtons: =>
     document.addEventListener 'keydown', @keydown, true
-    document.getElementById('dl-button-right').addEventListener 'click', @next, true
-    document.getElementById('dl-button-left').addEventListener 'click', @prev, true
+    try
+      document.getElementById('dl-button-right').addEventListener 'click', @next, true
+      document.getElementById('dl-button-left').addEventListener 'click', @prev, true
+    catch err
 
   unbindButtons: =>
     document.removeEventListener 'keydown', @keydown, true
-    document.getElementById('dl-button-right').removeEventListener 'click', @next
-    document.getElementById('dl-button-left').removeEventListener 'click', @prev
+    try
+      document.getElementById('dl-button-right').removeEventListener 'click', @next
+      document.getElementById('dl-button-left').removeEventListener 'click', @prev
+    catch err
 
   next: (e) =>
     e.stopPropagation() if e

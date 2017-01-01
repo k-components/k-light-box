@@ -96,15 +96,25 @@
     };
 
     Lightbox.prototype.bindButtons = function() {
+      var err, error;
       document.addEventListener('keydown', this.keydown, true);
-      document.getElementById('dl-button-right').addEventListener('click', this.next, true);
-      return document.getElementById('dl-button-left').addEventListener('click', this.prev, true);
+      try {
+        document.getElementById('dl-button-right').addEventListener('click', this.next, true);
+        return document.getElementById('dl-button-left').addEventListener('click', this.prev, true);
+      } catch (error) {
+        err = error;
+      }
     };
 
     Lightbox.prototype.unbindButtons = function() {
+      var err, error;
       document.removeEventListener('keydown', this.keydown, true);
-      document.getElementById('dl-button-right').removeEventListener('click', this.next);
-      return document.getElementById('dl-button-left').removeEventListener('click', this.prev);
+      try {
+        document.getElementById('dl-button-right').removeEventListener('click', this.next);
+        return document.getElementById('dl-button-left').removeEventListener('click', this.prev);
+      } catch (error) {
+        err = error;
+      }
     };
 
     Lightbox.prototype.next = function(e) {

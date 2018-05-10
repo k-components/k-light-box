@@ -3,8 +3,10 @@ module.exports = class Lightbox
   name: 'k-light-box'
 
   destroy: ->
-    @path.removeListener 'insert', @enumerateImagesDelayed
-    @path2.removeListener 'change', @enumerateImagesDelayed
+     if @path
+      @path.removeListener 'insert', @enumerateImagesDelayed
+      @path2.removeListener 'change', @enumerateImagesDelayed
+
     @deEnumerateImages()
 
   create: ->

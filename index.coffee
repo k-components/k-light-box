@@ -3,7 +3,7 @@ module.exports = class Lightbox
   name: 'k-light-box'
 
   destroy: ->
-     if @path
+    if @path
       @path.removeListener 'insert', @enumerateImagesDelayed
       @path2.removeListener 'change', @enumerateImagesDelayed
 

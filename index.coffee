@@ -36,7 +36,7 @@ module.exports = class Lightbox
   show: (e) =>
     if e
       @current = e.srcElement or e.target or e.toElement
-    @model.set 'src', @current.src
+    @model.set 'src', (@current.dataset?.srcl || @current.src)
     setTimeout @bindButtons, 1
 
   cancel: (e) =>

@@ -40,7 +40,7 @@ module.exports = class Lightbox
     setTimeout @bindButtons, 1
 
   cancel: (e) =>
-    e.stopPropagation()
+    e.stopPropagation() if e
     @unbindButtons()
     @model.del 'src'
 

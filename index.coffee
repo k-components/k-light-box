@@ -1,24 +1,32 @@
 module.exports = class Lightbox
   view: __dirname
   name: 'k-light-box'
+  listeners: { insert: [], change: [] }
 
   destroy: ->
-    if @path
-      @path.removeListener 'insert', @enumerateImagesDelayed
-      @path2.removeListener 'change', @enumerateImagesDelayed
+    for type, y of @listeners
+      for listener in y
+        if @path
+          @model.root.removeListener type, listener
+        else if @item
+          @item.removeListener type, listener
 
     @deEnumerateImages()
 
   create: ->
-    @ts = Date.now()
     @selector = @getAttribute('selector')
-    path = @getAttribute('path')
-    if path
-      @path = @model.root.at("#{path}.**")
-      @path2 = @model.root.at("#{path}.**.html")
-      @path.on 'insert', @enumerateImagesDelayed
-      @path2.on 'change', @enumerateImagesDelayed
-    @enumerateImages()
+    @path = @getAttribute('path')
+    @item = @getAttribute('item')
+
+    if @path
+      @listeners.insert.push(@model.root.on 'insert', "#{@path}.**", @enumerateImagesDelayed)
+      @listeners.change.push(@model.root.on 'change', "#{@path}.**.html", @enumerateImagesDelayed)
+      console.log @listeners
+    else if @item
+      @listeners.insert.push(@item.at('**').on 'insert', @enumerateImagesDelayed)
+      @listeners.insert.push(@item.at('**.html').on 'change', @enumerateImagesDelayed)
+
+    setTimeout @enumerateImages, 100
 
   deEnumerateImages: =>
     @enumerateImages 'removeEventListener'

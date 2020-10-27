@@ -21,7 +21,6 @@ module.exports = class Lightbox
     if @path
       @listeners.insert.push(@model.root.on 'insert', "#{@path}.**", @enumerateImagesDelayed)
       @listeners.change.push(@model.root.on 'change', "#{@path}.**.html", @enumerateImagesDelayed)
-      console.log @listeners
     else if @item
       @listeners.insert.push(@item.at('**').on 'insert', @enumerateImagesDelayed)
       @listeners.insert.push(@item.at('**.html').on 'change', @enumerateImagesDelayed)

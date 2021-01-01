@@ -11,9 +11,11 @@ module.exports = class Lightbox
         else if @item
           @item.removeListener type, listener
 
+    @listeners = { insert: [], change: [] }
     @deEnumerateImages()
 
   create: ->
+    @listeners = { insert: [], change: [] }
     @selector = @getAttribute('selector')
     @path = @getAttribute('path')
     @item = @getAttribute('item')

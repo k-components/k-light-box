@@ -22,10 +22,10 @@ module.exports = class Lightbox
 
     if @path
       @listeners.insert.push(@model.root.on 'insert', "#{@path}.**", @enumerateImagesDelayed)
-      @listeners.change.push(@model.root.on 'change', "#{@path}.**.html", @enumerateImagesDelayed)
+      @listeners.change.push(@model.root.on 'change', "#{@path}.**", @enumerateImagesDelayed)
     else if @item
       @listeners.insert.push(@item.at('**').on 'insert', @enumerateImagesDelayed)
-      @listeners.insert.push(@item.at('**.html').on 'change', @enumerateImagesDelayed)
+      @listeners.change.push(@item.at('**').on 'change', @enumerateImagesDelayed)
 
     setTimeout @enumerateImages, 100
 

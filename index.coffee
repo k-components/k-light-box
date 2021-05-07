@@ -46,12 +46,14 @@ module.exports = class Lightbox
     if e
       @current = e.srcElement or e.target or e.toElement
     @model.set 'src', (@current.dataset?.srcl || @current.src)
+    @emit 'show'
     setTimeout @bindButtons, 1
 
   cancel: (e) =>
     e.stopPropagation() if e
     @unbindButtons()
     @model.del 'src'
+    @emit 'hide'
 
   keydown: (e) =>
     key = e.keyCode or e.which

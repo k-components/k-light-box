@@ -11,14 +11,23 @@ module.exports = class Lightbox
         else if @item
           @item.removeListener type, listener
 
+    if @items && @itemslistener
+      @items.removeListener 'insert', @itemslistener
+      @itemslistener = null
+
     @listeners = { insert: [], change: [] }
     @deEnumerateImages()
 
   create: ->
+    @itemslistener = null
     @listeners = { insert: [], change: [] }
     @selector = @getAttribute('selector')
     @path = @getAttribute('path')
     @item = @getAttribute('item')
+    @items = @getAttribute('items')
+
+    if @items
+      @itemslistener = @items.on('insert', @enumerateImagesDelayed)
 
     if @path
       @listeners.insert.push(@model.root.on 'insert', "#{@path}.**", @enumerateImagesDelayed)
@@ -38,6 +47,7 @@ module.exports = class Lightbox
   enumerateImages: (fn = 'addEventListener') =>
     if @selector
       @elements = document.querySelectorAll(@selector)
+
       for el in @elements
         el[fn] 'click', @show
         el.classList.add 'd-l'

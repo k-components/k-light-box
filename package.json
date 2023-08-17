@@ -1,8 +1,8 @@
 {
   "name": "k-light-box",
-  "version": "0.2.26",
+  "version": "0.2.27",
   "description": "Derby.js lightbox component",
-  "main": "index.coffee",
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

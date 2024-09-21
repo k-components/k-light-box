@@ -8,7 +8,7 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/main/docs/suggestions.md
  */
 let Lightbox;
-module.exports = (Lightbox = (function() {
+module.exports = (Lightbox = (function () {
   Lightbox = class Lightbox {
     constructor() {
       this.deEnumerateImages = this.deEnumerateImages.bind(this);
@@ -86,14 +86,10 @@ module.exports = (Lightbox = (function() {
       if (this.selector) {
         this.elements = document.querySelectorAll(this.selector);
 
-        return (() => {
-          const result = [];
-          for (var el of Array.from(this.elements)) {
-            el[fn]('click', this.show);
-            result.push(el.classList.add('d-l'));
-          }
-          return result;
-        })();
+        for (var el of Array.from(this.elements)) {
+          el[fn]('click', this.show);
+          el.classList.add('d-l');
+        }
       }
     }
 
@@ -101,7 +97,11 @@ module.exports = (Lightbox = (function() {
       if (e) {
         this.current = e.srcElement || e.target || e.toElement;
       }
-      this.model.set('src', ((this.current.dataset != null ? this.current.dataset.srcl : undefined) || this.current.src));
+
+      this.model.set('src', {
+        type: this.current.nodeName == 'IMG' ? 'image' : 'video',
+        src: ((this.current.dataset != null ? this.current.dataset.srcl : undefined) || this.current.src)
+      });
       this.emit('show');
       return setTimeout(this.bindButtons, 1);
     }
@@ -128,55 +128,45 @@ module.exports = (Lightbox = (function() {
     }
 
     bindButtons() {
-      document.addEventListener('keydown', this.keydown, true);
+      window.addEventListener('keydown', this.keydown, true);
       try {
         document.getElementById('dl-button-right').addEventListener('click', this.next, true);
         return document.getElementById('dl-button-left').addEventListener('click', this.prev, true);
-      } catch (err) {}
+      } catch (err) { }
     }
 
     unbindButtons() {
-      document.removeEventListener('keydown', this.keydown, true);
+      window.removeEventListener('keydown', this.keydown, true);
       try {
         document.getElementById('dl-button-right').removeEventListener('click', this.next);
         return document.getElementById('dl-button-left').removeEventListener('click', this.prev);
-      } catch (err) {}
+      } catch (err) { }
     }
 
     next(e) {
       if (e) { e.stopPropagation(); }
       let next = false;
-      return (() => {
-        const result = [];
         for (var el of Array.from(this.elements)) {
           if (next) {
             this.current = el;
             this.show();
             break;
           }
-          if (el === this.current) { result.push(next = true); } else {
-            result.push(undefined);
-          }
+          if (el === this.current) { next = true; }
         }
-        return result;
-      })();
     }
 
     prev(e) {
       if (e) { e.stopPropagation(); }
       let prev = false;
-      return (() => {
-        const result = [];
         for (var el of Array.from(this.elements)) {
           if ((el === this.current) && prev) {
             this.current = prev;
             this.show();
             break;
           }
-          result.push(prev = el);
+          prev = el;
         }
-        return result;
-      })();
     }
   };
   Lightbox.initClass();

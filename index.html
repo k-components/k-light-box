@@ -1,10 +1,16 @@
 <index: tag="k-light-box">
 	{{if src}}
     <div class="dl-container" on-click="cancel($event)">
-        <figure>
-            <img src="{{src}}">
-            <figcaption>{{caption}}</figcaption>
-        </figure>
+        {{if src.type == 'image'}}
+            <figure>
+                <img src="{{src.src}}">
+            </figure>
+        {{else}}
+            <video controls loop preload="metadata">
+                <source src="{{src.src}}" />
+                <p>No support.</p>
+            </video>
+        {{/}}
         <i class="fa fa-angle-right ion ion-ios-arrow-forward dl-button dl-button-right" id="dl-button-right"></i>
         <i class="fa fa-angle-left ion ion-ios-arrow-back dl-button dl-button-left" id="dl-button-left"></i>
     </div>

@@ -98,6 +98,10 @@ module.exports = (Lightbox = (function () {
         this.current = e.srcElement || e.target || e.toElement;
       }
 
+      if (this.model.get('src.type') == 'video' && this.current.nodeName == 'SOURCE') {
+        this.model.del('src');
+      }
+      
       this.model.set('src', {
         type: this.current.nodeName == 'IMG' ? 'image' : 'video',
         src: ((this.current.dataset != null ? this.current.dataset.srcl : undefined) || this.current.src)

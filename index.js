@@ -54,6 +54,7 @@ module.exports = (Lightbox = (function () {
       this.itemslistener = null;
       this.listeners = { insert: [], change: [] };
       this.selector = this.getAttribute('selector');
+      this.exclude = this.getAttribute('exclude');
       this.path = this.getAttribute('path');
       this.item = this.getAttribute('item');
       this.items = this.getAttribute('items');
@@ -85,10 +86,13 @@ module.exports = (Lightbox = (function () {
       if (fn == null) { fn = 'addEventListener'; }
       if (this.selector) {
         this.elements = document.querySelectorAll(this.selector);
+        const exclude = this.exclude ? document.querySelectorAll(this.exclude) : [];
 
         for (var el of Array.from(this.elements)) {
-          el[fn]('click', this.show);
-          el.classList.add('d-l');
+          if (!Array.from(exclude).includes(el)) {
+            el[fn]('click', this.show);
+            el.classList.add('d-l');
+          }
         }
       }
     }

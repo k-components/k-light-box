@@ -2,7 +2,7 @@
   "name": "k-light-box",
   "version": "0.2.30",
   "description": "Derby.js lightbox component",
-  "main": "index.js",
+  "main": "index.cjs",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -15,5 +15,7 @@
   "bugs": {
     "url": "https://github.com/k-components/k-light-box/issues"
   },
-  "homepage": "https://github.com/k-components/k-light-box"
+  "homepage": "https://github.com/k-components/k-light-box",
+  "type": "module",
+  "module": "index.js"
 }
